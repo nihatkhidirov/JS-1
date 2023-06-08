@@ -29,6 +29,7 @@ balance += maaş;
 console.log(balance);
 var mewbalans = 0;
 var kp = "";
+var trs = [];
 
 while (count > 0) {
   var giris = Number(
@@ -65,10 +66,20 @@ while (count > 0) {
 
         if (nagdlasdirmaq <= balance) {
           balance -= nagdlasdirmaq; //1000-500=500
+          trs.push([nagdlasdirmaq, new Date()]);
           console.log(`Sizin qalan balansiniz: ${balance}`);
 
           isContinue = confirm("Davam etmek isteyirsinizmi?");
           if (!isContinue) {
+            var isShow = confirm(
+              "Tranzaksiya melumatlarina baxmaq isteyirsinizmi?"
+            );
+            if (isShow) {
+              for (const tr of trs) {
+                document.write(` Mebleg: ${tr[0]} Azn - Tarix: ${tr[1]} <br/>`);
+              }
+            }
+
             break;
           }
         } else if (balance === 0 || nagdlasdirmaq > balance) {
@@ -97,13 +108,10 @@ while (count > 0) {
           break;
         }
       } else {
-        console.log("Duzgun Secim Etmediniz!");
+        console.log("Duzgun Secim Etmediyiniz ucun Sistem baglandi!");
         break;
       }
 
-    kp = prompt(
-      "Kredit odenisi etmek isteyirsinizse K, pul cekmek isteyirsinizse P-herfini daxil edin!?"
-    );
     break;
   } else {
     count--;
